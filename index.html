@@ -2146,7 +2146,7 @@
         window.addEventListener('scroll', function () { var bg = document.getElementById('hero-bg'); if (!bg) return; var sy = window.scrollY, hh = document.getElementById('hero').offsetHeight; if (sy < hh) bg.style.transform = 'scale(1) translateY(' + (sy * 0.28) + 'px)'; }, { passive: true });
 
         /* ── RSVP ───────────────────────────────── */
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxHtqMHVZLnpJOX23vbaVeWsOxHfqp3GIulj3y5quwue-gJBkI80BmK01HItb_GPVBaQ/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBd1_2yItTgHduo-9IXc2V80m2GqMNbJKQtQLsgNlv1psdvPH_3BMoLgAxS7hYVVNUFg/exec";
 
         function submitRSVP() {
             const name = document.getElementById("fn").value.trim();
@@ -2161,23 +2161,21 @@
             btn.textContent = "Đang gửi...";
             btn.disabled = true;
 
-            const data = {
-                name,
-                phone: document.getElementById("fp").value.trim(),
-                email: document.getElementById("fe").value.trim(),
-                attend,
-                guests: document.getElementById("fg").value,
-                message: document.getElementById("fm").value.trim(),
-            };
+            // Dùng FormData — no-cors chấp nhận
+            const form = new FormData();
+            form.append("name", name);
+            form.append("phone", document.getElementById("fp").value.trim());
+            form.append("email", document.getElementById("fe").value.trim());
+            form.append("attend", attend);
+            form.append("guests", document.getElementById("fg").value);
+            form.append("message", document.getElementById("fm").value.trim());
 
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
-                mode: "no-cors",          // bắt buộc với Apps Script
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                mode: "no-cors",
+                body: form,           // FormData, không set Content-Type thủ công
             })
                 .then(() => {
-                    // no-cors không đọc được response, nhưng nếu không lỗi là thành công
                     document.getElementById("rsvp-form").style.display = "none";
                     document.getElementById("rsvp-ok").classList.add("on");
                 })
@@ -2187,7 +2185,6 @@
                     btn.disabled = false;
                 });
         }
-
 
 
         // Thiết lập ngày cưới (năm, tháng-1, ngày, giờ, phút, giây)
