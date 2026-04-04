@@ -2146,15 +2146,49 @@
         window.addEventListener('scroll', function () { var bg = document.getElementById('hero-bg'); if (!bg) return; var sy = window.scrollY, hh = document.getElementById('hero').offsetHeight; if (sy < hh) bg.style.transform = 'scale(1) translateY(' + (sy * 0.28) + 'px)'; }, { passive: true });
 
         /* ── RSVP ───────────────────────────────── */
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxHtqMHVZLnpJOX23vbaVeWsOxHfqp3GIulj3y5quwue-gJBkI80BmK01HItb_GPVBaQ/exec";
+
         function submitRSVP() {
-            var name = document.getElementById('fn').value.trim();
-            var attend = document.getElementById('fa').value;
-            if (!name || !attend) { alert('Vui lòng điền tên và chọn sự kiện tham dự.'); return; }
-            var data = { name: name, attend: attend, phone: document.getElementById('fp').value.trim(), email: document.getElementById('fe').value.trim(), guests: document.getElementById('fg').value, message: document.getElementById('fm').value.trim(), at: new Date().toISOString() };
-            console.log('[RSVP T&T]', data);
-            document.getElementById('rsvp-form').style.display = 'none';
-            document.getElementById('rsvp-ok').classList.add('on');
+            const name = document.getElementById("fn").value.trim();
+            const attend = document.getElementById("fa").value;
+
+            if (!name || !attend) {
+                alert("Vui lòng điền tên và chọn sự kiện tham dự.");
+                return;
+            }
+
+            const btn = document.querySelector(".fsub");
+            btn.textContent = "Đang gửi...";
+            btn.disabled = true;
+
+            const data = {
+                name,
+                phone: document.getElementById("fp").value.trim(),
+                email: document.getElementById("fe").value.trim(),
+                attend,
+                guests: document.getElementById("fg").value,
+                message: document.getElementById("fm").value.trim(),
+            };
+
+            fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",          // bắt buộc với Apps Script
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            })
+                .then(() => {
+                    // no-cors không đọc được response, nhưng nếu không lỗi là thành công
+                    document.getElementById("rsvp-form").style.display = "none";
+                    document.getElementById("rsvp-ok").classList.add("on");
+                })
+                .catch(() => {
+                    alert("Có lỗi xảy ra, vui lòng thử lại.");
+                    btn.textContent = "Xác nhận tham dự";
+                    btn.disabled = false;
+                });
         }
+
+
 
         // Thiết lập ngày cưới (năm, tháng-1, ngày, giờ, phút, giây)
         const weddingDate = new Date(2026, 4, 24, 0, 0, 0); // 24/05/2026 00:00:00
