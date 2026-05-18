@@ -22,6 +22,37 @@
 
     <link rel="stylesheet" href="CSS/style.css" type="text/css" media="screen" />
     <style>
+           /* clone đúng effect hover cũ */
+    #shape.hover.cube > .one {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(90deg) translateZ(130px);
+    }
+
+    #shape.hover.cube > .two {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) translateZ(150px);
+    }
+
+    #shape.hover.cube > .three {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(90deg) translateZ(150px);
+    }
+
+    #shape.hover.cube > .four {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(180deg) translateZ(150px);
+    }
+
+    #shape.hover.cube > .five {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(-90deg) translateZ(150px);
+    }
+
+    #shape.hover.cube > .six {
+        opacity: 0.9;
+        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(-90deg) translateZ(130px) rotate(180deg);
+    }
+    
         /* ════════════════════════════════════════
      VARIABLES
   ════════════════════════════════════════ */
@@ -1646,49 +1677,78 @@
     </section>
     <!-- STORY -->
     <section id="story">
-        <div class="w">
-            <div class="sg">
-                <div class="si-w rv">
-                    <div id="container" onclick="toggleShape()" class="si">
+    <div class="w">
+        <div class="sg">
 
-                        <div id="stage">
-                            <br><br><br><br><br><br>
-                            <div id="shape" class="cube backfaces">
-                                <div class="plane one"></div>
-                                <div class="plane two"></div>
-                                <div class="plane three"></div>
-                                <div class="plane four"></div>
-                                <div class="plane five"></div>
-                                <div class="plane six"></div>
-                                <div class="plane seven"></div>
-                                <div class="plane eight"></div>
-                                <div class="plane nine"></div>
-                                <div class="plane ten"></div>
-                                <div class="plane eleven"></div>
-                                <div class="plane twelve"></div>
-                            </div>
+            <div class="si-w rv">
+
+                <!-- thêm class auto-hover -->
+                <div id="container"
+                     onclick="toggleShape()"
+                     class="si auto-hover">
+
+                    <div id="stage">
+                        <br><br><br><br><br><br>
+
+                        <div id="shape" class="cube backfaces">
+                            <div class="plane one"></div>
+                            <div class="plane two"></div>
+                            <div class="plane three"></div>
+                            <div class="plane four"></div>
+                            <div class="plane five"></div>
+                            <div class="plane six"></div>
+                            <div class="plane seven"></div>
+                            <div class="plane eight"></div>
+                            <div class="plane nine"></div>
+                            <div class="plane ten"></div>
+                            <div class="plane eleven"></div>
+                            <div class="plane twelve"></div>
                         </div>
                     </div>
-                    <div class="si-f"></div>
                 </div>
-                <div>
-                    <span class="stag rv">Câu chuyện của chúng mình</span>
-                    <h2 class="stitle rv">Hai trái tim,<br><em>một hành trình</em></h2>
-                    <div class="srule rv"></div>
-                    <p class="sq rv">"Yêu không phải nhìn nhau, mà cùng nhìn về một hướng."</p>
-                    <p class="sb rv">Tiến và Trân gặp nhau trong những ngày bình yên của phố Tuy Hòa — từ
-                        những chuyến đi giản dị, đến những khoảnh khắc lặng lẽ mà ấm áp. Hành trình từ người lạ
-                        đến người
-                        thân thương nhất diễn ra nhẹ nhàng, tự nhiên như hơi thở.</p>
-                    <p class="sb rv" style="margin-top:14px">Hôm nay, chúng mình trân trọng mời bạn — những người đặc
-                        biệt nhất —
-                        cùng chứng kiến khoảnh khắc <strong style="color:var(--gold);font-weight:400">T &amp; T</strong>
-                        chính thức
-                        trở thành một gia đình.</p>
-                </div>
+
+                <div class="si-f"></div>
             </div>
+
+            <div>
+                <span class="stag rv">Câu chuyện của chúng mình</span>
+
+                <h2 class="stitle rv">
+                    Hai trái tim,<br>
+                    <em>một hành trình</em>
+                </h2>
+
+                <div class="srule rv"></div>
+
+                <p class="sq rv">
+                    "Yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng."
+                </p>
+
+                <p class="sb rv">
+                    Tiến và Trân gặp nhau giữa những ngày bình yên của phố biển Tuy Hòa —
+                    nơi những cuộc trò chuyện giản dị, những chuyến đi nhỏ và những khoảnh
+                    khắc ấm áp đã nhẹ nhàng kéo hai người lại gần nhau hơn.
+                </p>
+
+                <p class="sb rv" style="margin-top:14px">
+                    Từ người xa lạ trở thành người đồng hành quan trọng nhất trong cuộc đời
+                    nhau, hành trình ấy không quá ồn ào, nhưng đủ chân thành để cùng nhau đi
+                    qua những tháng ngày đẹp nhất của tuổi trẻ.
+                </p>
+
+                <p class="sb rv" style="margin-top:14px">
+                    Và hôm nay, với tất cả yêu thương và sự trân trọng, chúng mình xin được
+                    mời bạn — những người thân yêu nhất — cùng chứng kiến khoảnh khắc
+                    <strong style="color:var(--gold);font-weight:400">
+                        T &amp; T
+                    </strong>
+                    chính thức về chung một nhà.
+                </p>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     <div class="orn rv">✦ ✦ ✦</div>
 
@@ -1916,6 +1976,16 @@
     </footer>
 
     <script>
+           // fake hover cho Android TV / mobile
+    window.addEventListener('load', function () {
+
+        const shape = document.getElementById('shape');
+
+        // thêm hover giả
+        shape.classList.add('hover');
+
+    });
+
         // Tạo mảng 1 → 12
         let images = Array.from({ length: 12 }, (_, i) => i + 1);
 
