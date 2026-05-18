@@ -880,146 +880,165 @@
             transition-delay: .3s
         }
 
-    /* ════════════════════════════════════════
+        /* ════════════════════════════════════════
    COUNTDOWN
 ════════════════════════════════════════ */
-#countdown{
-    background: var(--cream-dark);
-    text-align: center;
-    padding: 42px 0; /* giảm chiều cao section */
-}
+        #countdown {
+            background: var(--cream-dark);
+            text-align: center;
+            padding: 42px 0;
+            /* giảm chiều cao section */
+        }
 
-.cd-lbl{
-    font-size: 10px;
-    letter-spacing: .32em;
-    text-transform: uppercase;
-    color: var(--gold);
+        .cd-lbl {
+            font-size: 10px;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--gold);
 
-    margin-bottom: 22px; /* giảm khoảng cách */
-}
+            margin-bottom: 22px;
+            /* giảm khoảng cách */
+        }
 
-.cd-grid{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
+        .cd-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
 
-    gap: 8px;
+            gap: 8px;
 
-    max-width: 500px;
-    margin: 0 auto;
-}
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-.cd-box{
-    padding: 20px 10px; /* thấp hơn */
+        .cd-box {
+            padding: 20px 10px;
+            /* thấp hơn */
 
-    background: var(--cream);
+            background: var(--cream);
 
-    position: relative;
+            position: relative;
 
-    border-radius: 14px;
-}
+            border-radius: 14px;
+        }
 
-.cd-box::after{
-    content:'';
+        .cd-box::after {
+            content: '';
 
-    position:absolute;
+            position: absolute;
 
-    bottom:0;
-    left:22%;
-    right:22%;
+            bottom: 0;
+            left: 22%;
+            right: 22%;
 
-    height:1px;
+            height: 1px;
 
-    background:var(--gold);
+            background: var(--gold);
 
-    opacity:.22;
-}
+            opacity: .22;
+        }
 
-.cd-n{
-    font-family: var(--fd);
+        .cd-n {
+            font-family: var(--fd);
 
-    font-size: clamp(26px,5vw,44px); /* nhỏ hơn */
+            font-size: clamp(26px, 5vw, 44px);
+            /* nhỏ hơn */
 
-    font-weight:300;
+            font-weight: 300;
 
-    color:var(--ink);
+            color: var(--ink);
 
-    line-height:1;
+            line-height: 1;
 
-    display:block;
-}
+            display: block;
+        }
 
-.cd-l{
-    font-size:8px;
+        .cd-l {
+            font-size: 8px;
 
-    letter-spacing:.24em;
+            letter-spacing: .24em;
 
-    text-transform:uppercase;
+            text-transform: uppercase;
 
-    color:var(--ink-muted);
+            color: var(--ink-muted);
 
-    margin-top:6px;
+            margin-top: 6px;
 
-    display:block;
-}
+            display: block;
+        }
 
-/* MOBILE */
-@media(max-width:768px){
+        /* MOBILE */
+        @media(max-width:768px) {
 
-    .cd-grid{
-        gap:6px;
-    }
+            .cd-grid {
+                gap: 6px;
+            }
 
-    .cd-box{
-        padding:16px 6px;
-    }
+            .cd-box {
+                padding: 16px 6px;
+            }
 
-    .cd-n{
-        font-size:28px;
-    }
+            .cd-n {
+                font-size: 28px;
+            }
 
-}
+        }
 
-        /* ════════════════════════════════════════
-     STORY
-  ════════════════════════════════════════ */
+        /* STORY */
+        #story {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
         .sg {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 70px;
-            align-items: center
-        }
 
-        .si-w {
-            position: relative
+            gap: 42px;
+
+            align-items: center;
         }
 
         .si {
             width: 100%;
-            aspect-ratio: 3/4;
-            object-fit: cover
+
+            /* giảm chiều cao ảnh */
+            aspect-ratio: 4/5;
+
+            object-fit: cover;
         }
 
         .si-f {
             position: absolute;
-            inset: -13px -13px 13px 13px;
+
+            inset: -10px -10px 10px 10px;
+
             border: 1px solid var(--gold);
-            opacity: .36;
-            pointer-events: none
+
+            opacity: .3;
+
+            pointer-events: none;
         }
 
         .sq {
             font-family: var(--fd);
-            font-size: clamp(18px, 2.8vw, 25px);
+
+            font-size: clamp(18px, 2.2vw, 24px);
+
             font-style: italic;
+
             color: var(--gold);
-            line-height: 1.5;
-            margin: 26px 0
+
+            line-height: 1.4;
+
+            margin: 18px 0;
         }
 
         .sb {
             font-size: 14px;
+
             color: var(--ink-soft);
-            line-height: 1.95
+
+            line-height: 1.75;
         }
 
         /* ════════════════════════════════════════
@@ -2066,7 +2085,7 @@
         const sections = [
             '#hero',
             '#countdown',
-            
+
         ];
 
         let current = 0;
@@ -2488,9 +2507,8 @@
                 });
         }
 
-
-        // Thiết lập ngày cưới (năm, tháng-1, ngày, giờ, phút, giây)
-        const weddingDate = new Date(2026, 4, 24, 0, 0, 0); // 24/05/2026 00:00:00
+        // Thiết lập ngày cưới
+        const weddingDate = new Date(2026, 4, 24, 0, 0, 0);
 
         const cdDays = document.getElementById("cd-d");
         const cdHours = document.getElementById("cd-h");
@@ -2499,31 +2517,62 @@
         const cdLabel = document.querySelector(".cd-lbl");
 
         function updateCountdown() {
-            const now = new Date();
-            let diff = weddingDate - now; // dương nếu chưa đến, âm nếu đã qua
+
+            const now = Date.now();
+
+            let diff = weddingDate.getTime() - now;
 
             let isPast = false;
+
             if (diff < 0) {
-                diff = -diff; // đổi sang số dương
+                diff = Math.abs(diff);
                 isPast = true;
             }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            const days = Math.floor(diff / 86400000);
 
-            cdDays.textContent = days;
-            cdHours.textContent = hours.toString().padStart(2, "0");
-            cdMinutes.textContent = minutes.toString().padStart(2, "0");
-            cdSeconds.textContent = seconds.toString().padStart(2, "0");
+            const hours = Math.floor((diff % 86400000) / 3600000);
 
-            cdLabel.textContent = isPast ? "Đã qua" : "Tiệc cưới còn";
+            const minutes = Math.floor((diff % 3600000) / 60000);
+
+            const seconds = Math.floor((diff % 60000) / 1000);
+
+            // chỉ update nếu khác -> giảm repaint / nháy
+            const d = String(days);
+            const h = String(hours).padStart(2, "0");
+            const m = String(minutes).padStart(2, "0");
+            const s = String(seconds).padStart(2, "0");
+
+            if (cdDays.textContent !== d) {
+                cdDays.textContent = d;
+            }
+
+            if (cdHours.textContent !== h) {
+                cdHours.textContent = h;
+            }
+
+            if (cdMinutes.textContent !== m) {
+                cdMinutes.textContent = m;
+            }
+
+            if (cdSeconds.textContent !== s) {
+                cdSeconds.textContent = s;
+            }
+
+            cdLabel.textContent = isPast
+                ? "Đã diễn ra"
+                : "Tiệc cưới còn";
         }
 
-        // Cập nhật mỗi giây
+        // render lần đầu
         updateCountdown();
-        setInterval(updateCountdown, 1000);
+
+        // countdown mượt hơn Android TV
+        setInterval(() => {
+
+            requestAnimationFrame(updateCountdown);
+
+        }, 1000);
 
     </script>
 </body>
