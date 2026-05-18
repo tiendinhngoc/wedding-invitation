@@ -22,6 +22,10 @@
 
     <link rel="stylesheet" href="CSS/style.css" type="text/css" media="screen" />
     <style>
+        .gg .gi {
+            transition: opacity .35s ease;
+        }
+
         #autoScrollToggle {
             position: fixed;
             right: 20px;
@@ -1858,48 +1862,36 @@
     <div class="orn rv">✦ ✦ ✦</div>
 
     <!-- GALLERY -->
-    <!-- <section id="gallery">
-        <div class="w">
-            <span class="stag rv">Khoảnh khắc</span>
-            <h2 class="stitle rv">Ảnh <em>cưới</em></h2>
-            <div class="srule rv"></div>
-            <div class="gg">
-                <div class="gi rv" onclick="lbOpen(0)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d1" onclick="lbOpen(1)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d2" onclick="lbOpen(2)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d1" onclick="lbOpen(3)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d2" onclick="lbOpen(4)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d3" onclick="lbOpen(5)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv" onclick="lbOpen(6)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-                <div class="gi rv d2" onclick="lbOpen(7)"><img loading="lazy"
-                        src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=75" alt="">
-                    <div class="gi-ov">+</div>
-                </div>
-            </div>
-        </div>
-    </section> -->
+    <section id="gallery">
 
+        <div class="w">
+
+            <span class="stag rv">Khoảnh khắc</span>
+
+            <h2 class="stitle rv">
+                Ảnh <em>cưới</em>
+            </h2>
+
+            <div class="srule rv"></div>
+
+            <div class="gg">
+
+                <div class="gi rv"><img loading="lazy" alt=""></div>
+                <div class="gi rv d1"><img loading="lazy" alt=""></div>
+                <div class="gi rv d2"><img loading="lazy" alt=""></div>
+                <div class="gi rv d1"><img loading="lazy" alt=""></div>
+                <div class="gi rv d2"><img loading="lazy" alt=""></div>
+                <div class="gi rv d3"><img loading="lazy" alt=""></div>
+                <div class="gi rv"><img loading="lazy" alt=""></div>
+                <div class="gi rv d2"><img loading="lazy" alt=""></div>
+                <div class="gi rv d1"><img loading="lazy" alt=""></div>
+                <div class="gi rv d3"><img loading="lazy" alt=""></div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
     <!-- SCHEDULE -->
@@ -2081,6 +2073,94 @@
     </footer>
 
     <script>
+
+
+
+
+        // RANDOM GALLERY IMAGES
+        function randomGalleryImages() {
+
+            const items =
+                document.querySelectorAll('.gg .gi');
+
+            // tổng ảnh
+            const TOTAL_IMAGES = 90;
+
+            // tạo mảng ảnh
+            let images = Array.from(
+                { length: TOTAL_IMAGES },
+                (_, i) => `img/gallery/${i + 1}.jpg`
+            );
+
+            // Fisher-Yates shuffle
+            for (let i = images.length - 1; i > 0; i--) {
+
+                const j =
+                    Math.floor(Math.random() * (i + 1));
+
+                [images[i], images[j]] =
+                    [images[j], images[i]];
+            }
+
+            // reset lightbox images
+            IMGS = [];
+
+            // random class size
+            const sizes = ['', 'd1', 'd2', 'd3'];
+
+            items.forEach((item, index) => {
+
+                const img = item.querySelector('img');
+
+                if (!img) return;
+
+                const src = images[index];
+
+                // save cho lightbox
+                IMGS.push(src);
+
+                // RANDOM SIZE
+                item.classList.remove(
+                    'd1',
+                    'd2',
+                    'd3'
+                );
+
+                const randomSize =
+                    sizes[
+                    Math.floor(
+                        Math.random() * sizes.length
+                    )
+                    ];
+
+                if (randomSize) {
+                    item.classList.add(randomSize);
+                }
+
+                // fade out
+                item.style.opacity = '0';
+
+                setTimeout(() => {
+
+                    img.src = src;
+
+                    item.setAttribute(
+                        'onclick',
+                        `lbOpen(${index})`
+                    );
+
+                    // fade in
+                    item.style.opacity = '1';
+
+                }, 200);
+
+            });
+
+        }
+
+
+
+
         // RANDOM ẢNH STORY CUBE
         function randomStoryImages() {
 
@@ -2137,6 +2217,7 @@
         const sections = [
             '#hero',
             '#countdown',
+            '#gallery'
 
         ];
 
@@ -2164,16 +2245,22 @@
 
                 // RANDOM MỖI LẦN AUTO SLIDE
                 randomHeroImages();
+
                 randomStoryImages();
+
+                randomGalleryImages();
+                
 
                 current++;
 
-                // quay lại đầu
                 if (current >= sections.length) {
                     current = 0;
                 }
 
-                const target = document.querySelector(sections[current]);
+                const target =
+                    document.querySelector(
+                        sections[current]
+                    );
 
                 if (target) {
 
@@ -2222,6 +2309,9 @@
 
             // start auto
             startAutoSlide();
+
+            // run galerry
+            randomGalleryImages();
 
             // tự mở phong bì
             setTimeout(() => {
@@ -2273,20 +2363,9 @@
                 });
         }
 
-        // LOAD FIRST
-        randomHeroImages();
 
         /* ── Gallery ─────────────────────────────── */
-        var IMGS = [
-            'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=85',
-            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=85',
-            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=85',
-            'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1400&q=85',
-            'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1200&q=85',
-            'https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=1200&q=85',
-            'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1400&q=85',
-            'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1200&q=85'
-        ];
+        var IMGS = [];
         var lbIdx = 0;
 
         /* ── Envelope open ──────────────────────── */
@@ -2375,6 +2454,7 @@
                 enterInvitation();
             }, 3500);
         }
+        window.tapEnv = tapEnv;
 
         function enterInvitation() {
             document.getElementById('intro').classList.add('out');
@@ -2528,17 +2608,7 @@
             else { a.pause(); btn.textContent = '♪'; }
         }
 
-        /* ── Countdown ──────────────────────────── */
-        function tick() {
-            var diff = new Date('2026-05-24T17:00:00+07:00') - new Date();
-            var pad = function (n) { return String(Math.floor(n)).padStart(2, '0'); };
-            if (diff <= 0) { ['cd-d', 'cd-h', 'cd-m', 'cd-s'].forEach(function (id) { document.getElementById(id).textContent = '00'; }); return; }
-            document.getElementById('cd-d').textContent = pad(diff / 86400000);
-            document.getElementById('cd-h').textContent = pad((diff % 86400000) / 3600000);
-            document.getElementById('cd-m').textContent = pad((diff % 3600000) / 60000);
-            document.getElementById('cd-s').textContent = pad((diff % 60000) / 1000);
-        }
-        tick(); setInterval(tick, 1000);
+
 
         /* ── Lightbox ───────────────────────────── */
         function lbOpen(i) { lbIdx = i; document.getElementById('lb-img').src = IMGS[i]; document.getElementById('lb').classList.add('on'); document.body.style.overflow = 'hidden'; }
