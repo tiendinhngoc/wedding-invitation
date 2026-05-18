@@ -880,64 +880,104 @@
             transition-delay: .3s
         }
 
-        /* ════════════════════════════════════════
-     COUNTDOWN
-  ════════════════════════════════════════ */
-        #countdown {
-            background: var(--cream-dark);
-            text-align: center
-        }
+    /* ════════════════════════════════════════
+   COUNTDOWN
+════════════════════════════════════════ */
+#countdown{
+    background: var(--cream-dark);
+    text-align: center;
+    padding: 42px 0; /* giảm chiều cao section */
+}
 
-        .cd-lbl {
-            font-size: 10px;
-            letter-spacing: .38em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 42px
-        }
+.cd-lbl{
+    font-size: 10px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--gold);
 
-        .cd-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            max-width: 540px;
-            margin: 0 auto
-        }
+    margin-bottom: 22px; /* giảm khoảng cách */
+}
 
-        .cd-box {
-            padding: 34px 14px;
-            background: var(--cream);
-            position: relative
-        }
+.cd-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
 
-        .cd-box::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 1px;
-            background: var(--gold);
-            opacity: .26
-        }
+    gap: 8px;
 
-        .cd-n {
-            font-family: var(--fd);
-            font-size: clamp(30px, 6vw, 58px);
-            font-weight: 300;
-            color: var(--ink);
-            line-height: 1;
-            display: block
-        }
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-        .cd-l {
-            font-size: 8px;
-            letter-spacing: .3em;
-            text-transform: uppercase;
-            color: var(--ink-muted);
-            margin-top: 8px;
-            display: block
-        }
+.cd-box{
+    padding: 20px 10px; /* thấp hơn */
+
+    background: var(--cream);
+
+    position: relative;
+
+    border-radius: 14px;
+}
+
+.cd-box::after{
+    content:'';
+
+    position:absolute;
+
+    bottom:0;
+    left:22%;
+    right:22%;
+
+    height:1px;
+
+    background:var(--gold);
+
+    opacity:.22;
+}
+
+.cd-n{
+    font-family: var(--fd);
+
+    font-size: clamp(26px,5vw,44px); /* nhỏ hơn */
+
+    font-weight:300;
+
+    color:var(--ink);
+
+    line-height:1;
+
+    display:block;
+}
+
+.cd-l{
+    font-size:8px;
+
+    letter-spacing:.24em;
+
+    text-transform:uppercase;
+
+    color:var(--ink-muted);
+
+    margin-top:6px;
+
+    display:block;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .cd-grid{
+        gap:6px;
+    }
+
+    .cd-box{
+        padding:16px 6px;
+    }
+
+    .cd-n{
+        font-size:28px;
+    }
+
+}
 
         /* ════════════════════════════════════════
      STORY
