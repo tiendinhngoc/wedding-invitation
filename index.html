@@ -79,6 +79,14 @@
             max-width: 100%
         }
 
+        .h-lunar {
+            margin-top: 10px;
+            font-size: 10px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .72);
+        }
+
         /* ════════════════════════════════════════
      INTRO OVERLAY
   ════════════════════════════════════════ */
@@ -1368,23 +1376,24 @@
         /* ════════════════════════════════════════
      RESPONSIVE
   ════════════════════════════════════════ */
-  @media (max-width: 768px) {
+        @media (max-width: 768px) {
 
-    #hero {
-        height: 88svh;
-        min-height: 520px;
-    }
+            #hero {
+                height: 88svh;
+                min-height: 520px;
+            }
 
-    #hero-bg {
+            #hero-bg {
 
-        /* mobile cần focus cao hơn nữa */
-        background-position: center 12%;
+                /* mobile cần focus cao hơn nữa */
+                background-position: center 12%;
 
-        /* giảm crop */
-        background-size: 115%;
-    }
+                /* giảm crop */
+                background-size: 115%;
+            }
 
-}
+        }
+
         @media(max-width:900px) {
             .vc-grid {
                 grid-template-columns: 1fr
@@ -1589,6 +1598,7 @@
     <section id="hero">
         <div id="hero-bg"></div>
         <div class="h-ov"></div>
+
         <div class="collage">
             <div class="cp cp1"><img data-random alt="" loading="lazy"></div>
             <div class="cp cp2"><img data-random alt="" loading="lazy"></div>
@@ -1597,14 +1607,28 @@
             <div class="cp cp5"><img data-random alt="" loading="lazy"></div>
             <div class="cp cp6"><img data-random alt="" loading="lazy"></div>
         </div>
+
         <!-- Heart particle canvas -->
         <canvas id="pinkboard"></canvas>
-        <div class="h-inner">
-            <div class="h-ey">Lễ Thành Hôn · Tuy Hòa, Đắk Lắk</div>
-            <h1 class="h-nm">Ngọc Tiến <span class="h-amp">&amp;</span> Huyền Trân</h1>
-            <div class="h-dt">Chủ Nhật · 24 Tháng 05 · 2026</div>
-            <div class="h-ln"></div>
 
+        <div class="h-inner">
+            <div class="h-ey">Lễ Tân Hôn · Tuy Hòa, Đắk Lắk</div>
+
+            <h1 class="h-nm">
+                Ngọc Tiến
+                <span class="h-amp">&amp;</span>
+                Huyền Trân
+            </h1>
+
+            <div class="h-dt h-ey">
+                Thứ Tư · 20 Tháng 05 · 2026
+            </div>
+
+            <div class="h-lunar h-ey">
+                Nhằm ngày 04 tháng 04 năm Bính Ngọ
+            </div>
+
+            <div class="h-ln"></div>
         </div>
     </section>
 
