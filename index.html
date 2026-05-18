@@ -22,37 +22,66 @@
 
     <link rel="stylesheet" href="CSS/style.css" type="text/css" media="screen" />
     <style>
-           /* clone đúng effect hover cũ */
-    #shape.hover.cube > .one {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(90deg) translateZ(130px);
-    }
+        #autoScrollToggle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 99999;
 
-    #shape.hover.cube > .two {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) translateZ(150px);
-    }
+            padding: 12px 18px;
 
-    #shape.hover.cube > .three {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(90deg) translateZ(150px);
-    }
+            border: none;
+            border-radius: 999px;
 
-    #shape.hover.cube > .four {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(180deg) translateZ(150px);
-    }
+            background: #111;
+            color: #fff;
 
-    #shape.hover.cube > .five {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(-90deg) translateZ(150px);
-    }
+            font-size: 14px;
+            font-weight: 600;
 
-    #shape.hover.cube > .six {
-        opacity: 0.9;
-        -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(-90deg) translateZ(130px) rotate(180deg);
-    }
-    
+            cursor: pointer;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+
+            transition: .25s;
+        }
+
+        #autoScrollToggle.active {
+            background: #c8a96b;
+            color: #111;
+        }
+
+        /* clone đúng effect hover cũ */
+        #shape.hover.cube>.one {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(90deg) translateZ(130px);
+        }
+
+        #shape.hover.cube>.two {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) translateZ(150px);
+        }
+
+        #shape.hover.cube>.three {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(90deg) translateZ(150px);
+        }
+
+        #shape.hover.cube>.four {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(180deg) translateZ(150px);
+        }
+
+        #shape.hover.cube>.five {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateY(-90deg) translateZ(150px);
+        }
+
+        #shape.hover.cube>.six {
+            opacity: 0.9;
+            -webkit-transform: scale3d(1.5, 1.5, 1.5) rotateX(-90deg) translateZ(130px) rotate(180deg);
+        }
+
         /* ════════════════════════════════════════
      VARIABLES
   ════════════════════════════════════════ */
@@ -452,36 +481,44 @@
         /* ════════════════════════════════════════
      FLOAT CONTROLS
   ════════════════════════════════════════ */
+        /* FLOAT CONTROLS */
         #fctrls {
-            position: fixed;
-            bottom: 26px;
-            right: 18px;
-            z-index: 200;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
+            position: fixed !important;
+            right: 20px !important;
+            bottom: 20px !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+
+            row-gap: 14px !important;
+
+            z-index: 999999 !important;
         }
 
-        .fc {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 1px solid var(--gold);
-            background: var(--cream);
-            color: var(--gold);
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 18px var(--shadow);
-            transition: all var(--ease);
-        }
+        /* BUTTON */
+        #fctrls .fc {
+            width: 52px !important;
+            height: 52px !important;
 
-        .fc:hover {
-            background: var(--gold);
-            color: var(--cream);
-            transform: scale(1.08)
+            min-width: 52px !important;
+            min-height: 52px !important;
+
+            padding: 0 !important;
+            margin: 0 !important;
+
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+
+            position: relative !important;
+
+            border-radius: 50% !important;
+
+            line-height: 1 !important;
+            font-size: 22px !important;
+
+            overflow: hidden !important;
+            flex: none !important;
         }
 
         /* ════════════════════════════════════════
@@ -1608,10 +1645,21 @@
 
     <!-- FLOAT CONTROLS -->
     <div id="fctrls">
-        <button class="fc" id="music-btn" onclick="toggleMusic()" title="Nhạc nền">♪</button>
-        <button class="fc" id="theme-btn" onclick="toggleTheme()" title="Giao diện">◐</button>
-    </div>
 
+        <button class="fc" id="music-btn" onclick="toggleMusic()" title="Nhạc nền">
+            ♪
+        </button>
+
+        <button class="fc" id="theme-btn" onclick="toggleTheme()" title="Giao diện">
+            ◐
+        </button>
+
+        <!-- AUTO SLIDE -->
+        <button class="fc" id="autoScrollToggle" title="Auto Slide">
+            ⟳
+        </button>
+
+    </div>
     <!-- LIGHTBOX -->
     <div id="lb" onclick="lbClose(event)">
         <span class="lb-x" onclick="lbClose(null,1)">×</span>
@@ -1677,78 +1725,76 @@
     </section>
     <!-- STORY -->
     <section id="story">
-    <div class="w">
-        <div class="sg">
+        <div class="w">
+            <div class="sg">
 
-            <div class="si-w rv">
+                <div class="si-w rv">
 
-                <!-- thêm class auto-hover -->
-                <div id="container"
-                     onclick="toggleShape()"
-                     class="si auto-hover">
+                    <!-- thêm class auto-hover -->
+                    <div id="container" onclick="toggleShape()" class="si auto-hover">
 
-                    <div id="stage">
-                        <br><br><br><br><br><br>
+                        <div id="stage">
+                            <br><br><br><br><br><br>
 
-                        <div id="shape" class="cube backfaces">
-                            <div class="plane one"></div>
-                            <div class="plane two"></div>
-                            <div class="plane three"></div>
-                            <div class="plane four"></div>
-                            <div class="plane five"></div>
-                            <div class="plane six"></div>
-                            <div class="plane seven"></div>
-                            <div class="plane eight"></div>
-                            <div class="plane nine"></div>
-                            <div class="plane ten"></div>
-                            <div class="plane eleven"></div>
-                            <div class="plane twelve"></div>
+                            <div id="shape" class="cube backfaces">
+                                <div class="plane one"></div>
+                                <div class="plane two"></div>
+                                <div class="plane three"></div>
+                                <div class="plane four"></div>
+                                <div class="plane five"></div>
+                                <div class="plane six"></div>
+                                <div class="plane seven"></div>
+                                <div class="plane eight"></div>
+                                <div class="plane nine"></div>
+                                <div class="plane ten"></div>
+                                <div class="plane eleven"></div>
+                                <div class="plane twelve"></div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="si-f"></div>
                 </div>
 
-                <div class="si-f"></div>
+                <div>
+                    <span class="stag rv">Câu chuyện của chúng mình</span>
+
+                    <h2 class="stitle rv">
+                        Hai trái tim,<br>
+                        <em>một hành trình</em>
+                    </h2>
+
+                    <div class="srule rv"></div>
+
+                    <p class="sq rv">
+                        "Yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng."
+                    </p>
+
+                    <p class="sb rv">
+                        Tiến và Trân gặp nhau giữa những ngày bình yên của phố biển Tuy Hòa —
+                        nơi những cuộc trò chuyện giản dị, những chuyến đi nhỏ và những khoảnh
+                        khắc ấm áp đã nhẹ nhàng kéo hai người lại gần nhau hơn.
+                    </p>
+
+                    <p class="sb rv" style="margin-top:14px">
+                        Từ người xa lạ trở thành người đồng hành quan trọng nhất trong cuộc đời
+                        nhau, hành trình ấy không quá ồn ào, nhưng đủ chân thành để cùng nhau đi
+                        qua những tháng ngày đẹp nhất của tuổi trẻ.
+                    </p>
+
+                    <p class="sb rv" style="margin-top:14px">
+                        Và hôm nay, với tất cả yêu thương và sự trân trọng, chúng mình xin được
+                        mời bạn — những người thân yêu nhất — cùng chứng kiến khoảnh khắc
+                        <strong style="color:var(--gold);font-weight:400">
+                            T &amp; T
+                        </strong>
+                        chính thức về chung một nhà.
+                    </p>
+                </div>
+
             </div>
-
-            <div>
-                <span class="stag rv">Câu chuyện của chúng mình</span>
-
-                <h2 class="stitle rv">
-                    Hai trái tim,<br>
-                    <em>một hành trình</em>
-                </h2>
-
-                <div class="srule rv"></div>
-
-                <p class="sq rv">
-                    "Yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng."
-                </p>
-
-                <p class="sb rv">
-                    Tiến và Trân gặp nhau giữa những ngày bình yên của phố biển Tuy Hòa —
-                    nơi những cuộc trò chuyện giản dị, những chuyến đi nhỏ và những khoảnh
-                    khắc ấm áp đã nhẹ nhàng kéo hai người lại gần nhau hơn.
-                </p>
-
-                <p class="sb rv" style="margin-top:14px">
-                    Từ người xa lạ trở thành người đồng hành quan trọng nhất trong cuộc đời
-                    nhau, hành trình ấy không quá ồn ào, nhưng đủ chân thành để cùng nhau đi
-                    qua những tháng ngày đẹp nhất của tuổi trẻ.
-                </p>
-
-                <p class="sb rv" style="margin-top:14px">
-                    Và hôm nay, với tất cả yêu thương và sự trân trọng, chúng mình xin được
-                    mời bạn — những người thân yêu nhất — cùng chứng kiến khoảnh khắc
-                    <strong style="color:var(--gold);font-weight:400">
-                        T &amp; T
-                    </strong>
-                    chính thức về chung một nhà.
-                </p>
-            </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
     <div class="orn rv">✦ ✦ ✦</div>
 
@@ -1976,15 +2022,92 @@
     </footer>
 
     <script>
-           // fake hover cho Android TV / mobile
-    window.addEventListener('load', function () {
+        // Danh sách section theo id
+        const sections = [
+            '#hero',
+            '#countdown',
+            '#schedule',
+        ];
 
-        const shape = document.getElementById('shape');
+        let current = 0;
 
-        // thêm hover giả
-        shape.classList.add('hover');
+        // 3 giây test
+        const AUTO_SCROLL_TIME = 3000;
 
-    });
+        let autoSlide = false;
+        let autoSlideInterval = null;
+
+        const toggleBtn = document.getElementById('autoScrollToggle');
+
+        // START AUTO SLIDE
+        function startAutoSlide() {
+
+            if (autoSlideInterval) return;
+
+            autoSlide = true;
+
+            toggleBtn.classList.add('active');
+            toggleBtn.innerText = 'Auto: ON';
+
+            autoSlideInterval = setInterval(() => {
+
+                current++;
+
+                // quay lại đầu
+                if (current >= sections.length) {
+                    current = 0;
+                }
+
+                const target = document.querySelector(sections[current]);
+
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
+            }, AUTO_SCROLL_TIME);
+
+        }
+
+        // STOP AUTO SLIDE
+        function stopAutoSlide() {
+
+            autoSlide = false;
+
+            toggleBtn.classList.remove('active');
+            toggleBtn.innerText = 'Auto: OFF';
+
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+
+        // TOGGLE BUTTON
+        toggleBtn.addEventListener('click', () => {
+
+            if (autoSlide) {
+                stopAutoSlide();
+            } else {
+                startAutoSlide();
+            }
+
+        });
+        // AUTO START
+        window.addEventListener('load', () => {
+            startAutoSlide();
+        });
+
+
+        // fake hover cho Android TV / mobile
+        window.addEventListener('load', function () {
+
+            const shape = document.getElementById('shape');
+
+            // thêm hover giả
+            shape.classList.add('hover');
+
+        });
 
         // Tạo mảng 1 → 12
         let images = Array.from({ length: 12 }, (_, i) => i + 1);
