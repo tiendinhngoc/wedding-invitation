@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thiệp Cưới | Đinh Ngọc Tiến &amp; Bùi Huyền Trân · 24.05.2026</title>
     <meta name="description"
-        content="Trân trọng kính mời bạn đến dự Lễ Tân Hôn của Đinh Ngọc Tiến &amp; Bùi Huyền Trân. Tiệc cưới ngày 24.05.2026 tại Tuy Hòa, Đắk Lắk." />
+        content="Trân trọng kính mời bạn đến dự Lễ Tân Hôn của Đinh Ngọc Tiến &amp; Bùi Huyền Trân. Lễ Thành Hôn ngày 24.05.2026 tại Tuy Hòa, Đắk Lắk." />
     <meta property="og:title" content="Đám Cưới T&amp;T · Tiến &amp; Trân · 24.05.2026" />
     <meta property="og:description"
-        content="Hân hạnh được chia sẻ niềm vui cùng ❤️. Tiệc cưới 17:00 ngày 24.05.2026 · Nhà hàng Công Đoàn, Tuy Hòa." />
+        content="Hân hạnh được chia sẻ niềm vui cùng ❤️. Lễ Thành Hôn 17:00 ngày 24.05.2026 · Nhà hàng Công Đoàn, Tuy Hòa." />
     <meta property="og:image" content="https://tiendinhngoc.github.io/wedding-invitation/img/image.png?w=1200&q=80" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -1773,7 +1773,7 @@
     <!-- COUNTDOWN -->
     <section id="countdown">
         <div class="w">
-            <div class="cd-lbl rv">Tiệc cưới còn</div>
+            <div class="cd-lbl rv">Lễ Thành Hôn còn</div>
             <div class="cd-grid">
                 <div class="cd-box rv d1"><span class="cd-n" id="cd-d">--</span><span class="cd-l">Ngày</span></div>
                 <div class="cd-box rv d2"><span class="cd-n" id="cd-h">--</span><span class="cd-l">Giờ</span></div>
@@ -1956,7 +1956,7 @@
                     </div>
                     <div class="tl-cn">
                         <span class="tl-time">17:00 · Ngày 24 · 05 · 2026</span>
-                        <div class="tl-ev">Tiệc Cưới</div>
+                        <div class="tl-ev">Lễ Thành Hôn</div>
                         <div class="tl-ad"><span class="tl-ic">◈</span><span> Nhà Hàng Công Đoàn<br>278 Nguyễn Huệ,
                                 Phường Tuy
                                 Hòa<br>Tỉnh Đắk Lắk</span></div>
@@ -2005,11 +2005,11 @@
 
                 <div class="vc rv d3">
                     <div class="vc-n">03</div>
-                    <div class="vc-ev">Tiệc Cưới · 17:00 · 24.05.2026</div>
+                    <div class="vc-ev">Lễ Thành Hôn · 17:00 · 24.05.2026</div>
                     <div class="vc-nm">Sảnh đường Nguyễn Huệ - Nhà Hàng Công Đoàn<br>278 Nguyễn Huệ</div>
                     <div class="vc-dt">
                         <strong>Phường Tuy Hòa, Tỉnh Đắk Lắk</strong><br>
-                        Tiệc cưới chính thức — âm nhạc, ẩm thực và những kỷ niệm khó quên.
+                        Lễ Thành Hôn chính thức — âm nhạc, ẩm thực và những kỷ niệm khó quên.
                     </div>
                     <iframe class="vc-map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                         src="https://www.google.com/maps?q=Nh%C3%A0%20H%C3%A0ng%20C%C3%B4ng%20%C4%90o%C3%A0n%2C%20278%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20Tuy%20H%C3%B2a%2C%20Ph%C3%BA%20Y%C3%AAn&output=embed">
@@ -2046,7 +2046,7 @@
                                 <option value="">-- Chọn --</option>
                                 <option value="dinh-hon">✓ Lễ đính hôn 03.04</option>
                                 <option value="thanh-hon">✓ Lễ Tân Hôn 20.05</option>
-                                <option value="tiec-cuoi">✓ Tiệc cưới 24.05</option>
+                                <option value="tiec-cuoi">✓ Lễ Thành Hôn 24.05</option>
                                 <option value="all">✓ Cả ba sự kiện</option>
                                 <option value="no">✕ Không thể đến</option>
                             </select>
@@ -2081,6 +2081,58 @@
     </footer>
 
     <script>
+        // RANDOM ẢNH STORY CUBE
+        function randomStoryImages() {
+
+            // tạo mảng 1 -> 12
+            let images = Array.from({ length: 12 }, (_, i) => i + 1);
+
+            // shuffle
+            images.sort(() => Math.random() - 0.5);
+
+            // map class
+            const planes = [
+                'one',
+                'two',
+                'three',
+                'four',
+                'five',
+                'six',
+                'seven',
+                'eight',
+                'nine',
+                'ten',
+                'eleven',
+                'twelve'
+            ];
+
+            // random background
+            planes.forEach((cls, index) => {
+
+                const el = document.querySelector(`.${cls}`);
+
+                if (!el) return;
+
+                // fade nhẹ
+                el.style.opacity = 0;
+
+                setTimeout(() => {
+
+                    el.style.backgroundImage =
+                        `url('img/${images[index]}.jpg')`;
+
+                    el.style.backgroundSize = 'cover';
+                    el.style.backgroundPosition = 'center';
+                    el.style.backgroundRepeat = 'no-repeat';
+
+                    el.style.opacity = '';
+
+                }, 250);
+
+            });
+
+        }
+
         // Danh sách section theo id
         const sections = [
             '#hero',
@@ -2110,6 +2162,10 @@
 
             autoSlideInterval = setInterval(() => {
 
+                // RANDOM MỖI LẦN AUTO SLIDE
+                randomHeroImages();
+                randomStoryImages();
+
                 current++;
 
                 // quay lại đầu
@@ -2120,10 +2176,12 @@
                 const target = document.querySelector(sections[current]);
 
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
                     });
+
                 }
 
             }, AUTO_SCROLL_TIME);
@@ -2139,6 +2197,7 @@
             toggleBtn.innerText = 'Auto: OFF';
 
             clearInterval(autoSlideInterval);
+
             autoSlideInterval = null;
         }
 
@@ -2154,17 +2213,25 @@
         });
         // AUTO START
         window.addEventListener('load', () => {
+
+            // random hero
+            randomHeroImages();
+
+            // random story cube
+            randomStoryImages();
+
+            // start auto
             startAutoSlide();
 
-            // tự mở phong bì sau 5 giây
+            // tự mở phong bì
             setTimeout(() => {
 
-                // chưa mở mới chạy
                 if (!envDone) {
                     tapEnv();
                 }
 
             }, 5000);
+
         });
 
 
@@ -2177,17 +2244,37 @@
             shape.classList.add('hover');
 
         });
+        // RANDOM HERO PHOTOS
+        function randomHeroImages() {
 
-        // Tạo mảng 1 → 12
-        let images = Array.from({ length: 12 }, (_, i) => i + 1);
+            // tạo mảng 1 -> 12
+            let images = Array.from({ length: 12 }, (_, i) => i + 1);
 
-        // Trộn mảng (shuffle)
-        images.sort(() => Math.random() - 0.5);
+            // shuffle
+            images.sort(() => Math.random() - 0.5);
 
-        // Gán 6 ảnh đầu (không trùng)
-        document.querySelectorAll('img[data-random]').forEach((img, index) => {
-            img.src = `img/${images[index]}.jpg`;
-        });
+            // đổi ảnh
+            document.querySelectorAll('img[data-random]')
+                .forEach((img, index) => {
+
+                    // fade nhẹ
+                    img.style.opacity = 0;
+
+                    setTimeout(() => {
+
+                        img.src = `img/${images[index]}.jpg`;
+
+                        img.onload = () => {
+                            img.style.opacity = 1;
+                        };
+
+                    }, 250);
+
+                });
+        }
+
+        // LOAD FIRST
+        randomHeroImages();
 
         /* ── Gallery ─────────────────────────────── */
         var IMGS = [
@@ -2561,7 +2648,7 @@
 
             cdLabel.textContent = isPast
                 ? "Đã diễn ra"
-                : "Tiệc cưới còn";
+                : "Lễ Thành Hôn còn";
         }
 
         // render lần đầu
