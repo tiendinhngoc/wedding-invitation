@@ -463,10 +463,20 @@
         #hero-bg {
             position: absolute;
             inset: 0;
-            background: url('img/hero.jpeg') center/cover no-repeat;
-            transform: scale(1.08);
-            transition: transform 9s ease;
-            will-change: transform;
+
+            background-image: url('img/hero.jpeg');
+            background-repeat: no-repeat;
+
+            /* QUAN TRỌNG */
+            background-size: cover;
+
+            /* kéo focus lên trên */
+            background-position: center 18%;
+
+            /* bỏ zoom */
+            transform: scale(1);
+
+            transition: none;
         }
 
         #hero.loaded #hero-bg {
@@ -1358,6 +1368,23 @@
         /* ════════════════════════════════════════
      RESPONSIVE
   ════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    #hero {
+        height: 88svh;
+        min-height: 520px;
+    }
+
+    #hero-bg {
+
+        /* mobile cần focus cao hơn nữa */
+        background-position: center 12%;
+
+        /* giảm crop */
+        background-size: 115%;
+    }
+
+}
         @media(max-width:900px) {
             .vc-grid {
                 grid-template-columns: 1fr
