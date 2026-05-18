@@ -2096,6 +2096,16 @@
         // AUTO START
         window.addEventListener('load', () => {
             startAutoSlide();
+
+            // tự mở phong bì sau 5 giây
+            setTimeout(() => {
+
+                // chưa mở mới chạy
+                if (!envDone) {
+                    tapEnv();
+                }
+
+            }, 5000);
         });
 
 
@@ -2137,8 +2147,16 @@
         var envDone = false;
 
         function tapEnv() {
+
             if (envDone) return;
+
             envDone = true;
+
+            // tắt click sau khi mở
+            const intro = document.getElementById('intro');
+            if (intro) {
+                intro.style.pointerEvents = 'none';
+            }
 
             var flap = document.getElementById('env-flap');
             var seal = document.getElementById('env-seal');
