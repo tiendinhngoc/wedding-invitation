@@ -501,11 +501,11 @@
 
         /* BUTTON */
         #fctrls .fc {
-            width: 52px !important;
-            height: 52px !important;
+            width: 12px !important;
+            height: 12px !important;
 
-            min-width: 52px !important;
-            min-height: 52px !important;
+            min-width: 12px !important;
+            min-height: 12px !important;
 
             padding: 0 !important;
             margin: 0 !important;
@@ -1169,59 +1169,99 @@
         }
 
         /* ════════════════════════════════════════
-     GALLERY
-  ════════════════════════════════════════ */
+   GALLERY TV / HERO STYLE
+════════════════════════════════════════ */
         .gg {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            margin-top: 36px
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            grid-auto-rows: 220px;
+
+            gap: 8px;
+
+            margin-top: 36px;
         }
 
         .gi {
             position: relative;
+
             overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 1
+
+            border-radius: 18px;
+
+            background: #111;
         }
 
-        .gi:nth-child(4) {
-            aspect-ratio: 2/1;
-            grid-column: span 2
-        }
-
-        .gi:nth-child(7) {
-            aspect-ratio: 2/1;
-            grid-column: span 2
-        }
-
+        /* full image */
         .gi img {
             width: 100%;
             height: 100%;
+
             object-fit: cover;
-            transition: transform .7s cubic-bezier(.25, .46, .45, .94)
+
+            transition:
+                transform 8s ease,
+                opacity .5s ease;
+
+            will-change: transform;
         }
 
+        /* slow cinematic zoom */
         .gi:hover img {
-            transform: scale(1.06)
+            transform: scale(1.05);
         }
 
+        /* big hero */
+        .gi.hero {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+        /* ngang */
+        .gi.wide {
+            grid-column: span 2;
+        }
+
+        /* dọc */
+        .gi.tall {
+            grid-row: span 2;
+        }
+
+        /* overlay */
         .gi-ov {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, .22);
+
+            background: rgba(0, 0, 0, .18);
+
             opacity: 0;
-            transition: opacity var(--ease);
+
+            transition: opacity .4s ease;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             color: #fff;
-            font-size: 22px
+            font-size: 22px;
         }
 
         .gi:hover .gi-ov {
-            opacity: 1
+            opacity: 1;
         }
+
+        /* TV landscape */
+        @media (min-width:1400px) {
+
+            .gg {
+                grid-auto-rows: 260px;
+                gap: 10px;
+            }
+
+        }
+
 
         /* Lightbox */
         #lb {
@@ -1563,7 +1603,6 @@
 
             .gi:nth-child(4),
             .gi:nth-child(7) {
-                aspect-ratio: 1;
                 grid-column: span 1
             }
 
@@ -1620,7 +1659,6 @@
 
             .gi:nth-child(4),
             .gi:nth-child(7) {
-                aspect-ratio: 1;
                 grid-column: span 1
             }
 
@@ -1640,6 +1678,63 @@
             .fsp {
                 grid-template-columns: 1fr
             }
+        }
+
+        #gallery{
+    padding-top:24px;
+    padding-bottom:24px;
+}
+
+        #gallery .w {
+
+            width: 100%;
+
+            max-width: 100%;
+
+            padding-inline: 24px;
+
+        }
+
+        /* compact gallery heading */
+        #gallery .stag {
+            display: none;
+
+            margin-bottom: 6px;
+
+            font-size: 12px;
+
+            line-height: 1;
+        }
+
+        #gallery .stitle {
+            margin: 0;
+
+            font-size: 38px;
+
+            line-height: 1.05;
+        }
+
+        #gallery .stitle em {
+            line-height: 1;
+        }
+
+        #gallery .srule {
+            margin:
+                10px auto 18px;
+
+            height: 2px;
+        }
+
+        @media (min-width: 1600px) {
+
+            .gg {
+
+                grid-auto-rows: 160px;
+
+                gap: 10px;
+
+            }
+
         }
     </style>
 </head>
@@ -1876,16 +1971,24 @@
 
             <div class="gg">
 
-                <div class="gi rv"><img loading="lazy" alt=""></div>
-                <div class="gi rv d1"><img loading="lazy" alt=""></div>
-                <div class="gi rv d2"><img loading="lazy" alt=""></div>
-                <div class="gi rv d1"><img loading="lazy" alt=""></div>
-                <div class="gi rv d2"><img loading="lazy" alt=""></div>
-                <div class="gi rv d3"><img loading="lazy" alt=""></div>
-                <div class="gi rv"><img loading="lazy" alt=""></div>
-                <div class="gi rv d2"><img loading="lazy" alt=""></div>
-                <div class="gi rv d1"><img loading="lazy" alt=""></div>
-                <div class="gi rv d3"><img loading="lazy" alt=""></div>
+                <div class="gi rv hero"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv wide"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv tall"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv wide"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv hero"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv wide"><img loading="lazy" decoding="async" alt=""></div>
+
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
 
             </div>
 
@@ -2074,25 +2177,43 @@
 
     <script>
 
+        function preloadImages(images = []) {
+
+            return Promise.all(
+
+                images.map(src => {
+
+                    return new Promise(resolve => {
+
+                        const img = new Image();
+
+                        img.src = src;
+
+                        img.onload = resolve;
+                        img.onerror = resolve;
+
+                    });
+
+                })
+
+            );
+
+        }
 
 
-
-        // RANDOM GALLERY IMAGES
-        function randomGalleryImages() {
+        async function randomGalleryImages() {
 
             const items =
                 document.querySelectorAll('.gg .gi');
 
-            // tổng ảnh
             const TOTAL_IMAGES = 90;
 
-            // tạo mảng ảnh
             let images = Array.from(
                 { length: TOTAL_IMAGES },
                 (_, i) => `img/gallery/${i + 1}.jpg`
             );
 
-            // Fisher-Yates shuffle
+            // shuffle
             for (let i = images.length - 1; i > 0; i--) {
 
                 const j =
@@ -2102,42 +2223,24 @@
                     [images[j], images[i]];
             }
 
-            // reset lightbox images
-            IMGS = [];
+            // preload trước
+            await preloadImages(
+                images.slice(0, items.length)
+            );
 
-            // random class size
-            const sizes = ['', 'd1', 'd2', 'd3'];
+            IMGS = [];
 
             items.forEach((item, index) => {
 
-                const img = item.querySelector('img');
+                const img =
+                    item.querySelector('img');
 
                 if (!img) return;
 
                 const src = images[index];
 
-                // save cho lightbox
                 IMGS.push(src);
 
-                // RANDOM SIZE
-                item.classList.remove(
-                    'd1',
-                    'd2',
-                    'd3'
-                );
-
-                const randomSize =
-                    sizes[
-                    Math.floor(
-                        Math.random() * sizes.length
-                    )
-                    ];
-
-                if (randomSize) {
-                    item.classList.add(randomSize);
-                }
-
-                // fade out
                 item.style.opacity = '0';
 
                 setTimeout(() => {
@@ -2149,10 +2252,9 @@
                         `lbOpen(${index})`
                     );
 
-                    // fade in
                     item.style.opacity = '1';
 
-                }, 200);
+                }, 100);
 
             });
 
@@ -2215,16 +2317,36 @@
 
         // Danh sách section theo id
         const sections = [
-            '#hero',
-            '#countdown',
-            '#gallery'
+            {
+                id: '#hero',
+                random: async () => {
 
+                    if (current !== 0) {
+                        await randomHeroImages();
+                    }
+
+                }
+            },
+
+            {
+                id: '#countdown',
+                random: async () => {
+                    randomStoryImages();
+                }
+            },
+
+            {
+                id: '#gallery',
+                random: async () => {
+                    await randomGalleryImages();
+                }
+            }
         ];
 
         let current = 0;
 
         // 90 giay
-        const AUTO_SCROLL_TIME = 90000;
+        const AUTO_SCROLL_TIME = 9000;
 
         let autoSlide = false;
         let autoSlideInterval = null;
@@ -2241,28 +2363,43 @@
             toggleBtn.classList.add('active');
             toggleBtn.innerText = 'Auto: ON';
 
-            autoSlideInterval = setInterval(() => {
+            autoSlideInterval = setInterval(async () => {
 
-                // RANDOM MỖI LẦN AUTO SLIDE
-                randomHeroImages();
+                // section tiếp theo
+                let next = current + 1;
 
-                randomStoryImages();
-
-                randomGalleryImages();
-                
-
-                current++;
-
-                if (current >= sections.length) {
-                    current = 0;
+                if (next >= sections.length) {
+                    next = 0;
                 }
+
+                const nextSection = sections[next];
+
+                // RANDOM RIÊNG SECTION SẮP TỚI
+                if (nextSection.random) {
+
+                    await nextSection.random();
+
+                }
+
+                // đợi browser render xong
+                await new Promise(r =>
+                    requestAnimationFrame(r)
+                );
+
+                current = next;
 
                 const target =
                     document.querySelector(
-                        sections[current]
+                        nextSection.id
                     );
 
                 if (target) {
+
+                    // waiting
+                    await new Promise(r =>
+                        setTimeout(r, 300)
+                    );
+
 
                     window.scrollTo({
                         top: target.offsetTop,
@@ -2335,34 +2472,35 @@
 
         });
         // RANDOM HERO PHOTOS
-        function randomHeroImages() {
+        async function randomHeroImages() {
 
-            // tạo mảng 1 -> 12
-            let images = Array.from({ length: 12 }, (_, i) => i + 1);
+            let images =
+                Array.from({ length: 12 },
+                    (_, i) => `img/${i + 1}.jpg`);
 
-            // shuffle
             images.sort(() => Math.random() - 0.5);
 
-            // đổi ảnh
-            document.querySelectorAll('img[data-random]')
+            await preloadImages(images);
+
+            document
+                .querySelectorAll('img[data-random]')
                 .forEach((img, index) => {
 
-                    // fade nhẹ
                     img.style.opacity = 0;
 
                     setTimeout(() => {
 
-                        img.src = `img/${images[index]}.jpg`;
+                        img.src = images[index];
 
                         img.onload = () => {
                             img.style.opacity = 1;
                         };
 
-                    }, 250);
+                    }, 100);
 
                 });
-        }
 
+        }
 
         /* ── Gallery ─────────────────────────────── */
         var IMGS = [];
