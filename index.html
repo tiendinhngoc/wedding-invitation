@@ -26,6 +26,7 @@
             transition: opacity .35s ease;
         }
 
+       
         #autoScrollToggle {
             position: fixed;
             right: 20px;
@@ -1680,10 +1681,10 @@
             }
         }
 
-        #gallery{
-    padding-top:24px;
-    padding-bottom:24px;
-}
+        #gallery {
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
 
         #gallery .w {
 
@@ -1978,6 +1979,7 @@
                 <div class="gi rv tall"><img loading="lazy" decoding="async" alt=""></div>
 
                 <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv tall"><img loading="lazy" decoding="async" alt=""></div>
                 <div class="gi rv wide"><img loading="lazy" decoding="async" alt=""></div>
 
                 <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
@@ -1986,9 +1988,14 @@
                 <div class="gi rv hero"><img loading="lazy" decoding="async" alt=""></div>
 
                 <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
-                <div class="gi rv wide"><img loading="lazy" decoding="async" alt=""></div>
 
                 <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+                <div class="gi rv"><img loading="lazy" decoding="async" alt=""></div>
+
+
 
             </div>
 
@@ -2177,6 +2184,121 @@
 
     <script>
 
+         // ---------- Auto-swap when gallery visible ----------
+        (function () {
+            const SWAP_INTERVAL = 2200; // ms between swap steps
+            const MAX_SWAP_PER_TICK = 2; // 1-2 images each tick
+            let swapTimer = null;
+
+            function pickFromPool(pool) {
+                if (!pool || pool.length === 0) return null;
+                return pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+            }
+
+            function pickImageForItem(item) {
+                // prefer pools exposed earlier
+                const pools = window.GALLERY_POOLS || { landscapes: [], portraits: [], squares: [], remaining: [], all: [] };
+                let chosen = null;
+                if (item.classList.contains('hero') || item.classList.contains('wide')) {
+                    chosen = pickFromPool(pools.landscapes) || pickFromPool(pools.squares) || pickFromPool(pools.portraits);
+                } else if (item.classList.contains('tall')) {
+                    chosen = pickFromPool(pools.portraits) || pickFromPool(pools.squares) || pickFromPool(pools.landscapes);
+                } else {
+                    chosen = pickFromPool(pools.squares) || pickFromPool(pools.landscapes) || pickFromPool(pools.portraits);
+                }
+
+                if (!chosen) chosen = pickFromPool(pools.remaining) || (pools.all && pools.all[Math.floor(Math.random() * pools.all.length)]) || '';
+                return chosen;
+            }
+
+            async function swapOne(itemIdx) {
+                const items = window.GALLERY_ITEMS || Array.from(document.querySelectorAll('.gg .gi'));
+                const item = items[itemIdx];
+                if (!item) return;
+                const img = item.querySelector('img');
+                if (!img) return;
+
+                const src = pickImageForItem(item);
+                if (!src) return;
+
+                // avoid swapping to same src immediately
+                if (img.src && img.src.indexOf(src) !== -1) return;
+
+                // preload then swap with fade
+                const tmp = new Image();
+                tmp.src = src;
+                tmp.onload = function () {
+                    img.style.transition = 'opacity .45s ease';
+                    img.style.opacity = '0';
+                    setTimeout(() => {
+                        img.src = src;
+                        item.setAttribute('onclick', `lbOpen(${itemIdx})`);
+                        img.onload = function () { img.style.opacity = '1'; };
+                        img.onerror = function () { img.style.opacity = '1'; };
+                    }, 220);
+                };
+                tmp.onerror = function () {
+                    // on error, do nothing (pool already consumed) — avoid leaving blank
+                };
+            }
+
+            function swapTick() {
+                const items = window.GALLERY_ITEMS || Array.from(document.querySelectorAll('.gg .gi'));
+                if (!items || items.length === 0) return;
+
+                // choose 1..MAX_SWAP_PER_TICK distinct random indices
+                const count = 1 + Math.floor(Math.random() * MAX_SWAP_PER_TICK);
+                const idxs = new Set();
+                let attempts = 0;
+                while (idxs.size < count && attempts < 10) {
+                    idxs.add(Math.floor(Math.random() * items.length));
+                    attempts++;
+                }
+
+                idxs.forEach(i => swapOne(i));
+            }
+
+            function startSwap() {
+                if (swapTimer) return;
+                swapTimer = setInterval(swapTick, SWAP_INTERVAL);
+            }
+
+            function stopSwap() {
+                if (!swapTimer) return;
+                clearInterval(swapTimer);
+                swapTimer = null;
+            }
+
+            // IntersectionObserver for gallery section
+            const galleryEl = document.getElementById('gallery');
+            if (galleryEl) {
+                const obs = new IntersectionObserver(entries => {
+                    entries.forEach(async e => {
+                        if (e.isIntersecting) {
+                            // refresh pools if missing
+                            if (!window.GALLERY_POOLS) {
+                                await randomGalleryImages();
+                            }
+                            startSwap();
+                        } else {
+                            stopSwap();
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                obs.observe(galleryEl);
+                // also stop when page hidden
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) stopSwap(); else {
+                        // if gallery visible, restart
+                        const rect = galleryEl.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) startSwap();
+                    }
+                });
+            }
+        })();
+
+
         function preloadImages(images = []) {
 
             return Promise.all(
@@ -2203,23 +2325,22 @@
 
         async function randomGalleryImages() {
 
-            const items = document.querySelectorAll('.gg .gi');
+            const items = Array.from(document.querySelectorAll('.gg .gi'));
+            const N = items.length;
 
             const TOTAL_IMAGES = 90;
-
             let images = Array.from({ length: TOTAL_IMAGES }, (_, i) => `img/gallery/${i + 1}.jpg`);
 
-            // quick shuffle
+            // shuffle source list
             for (let i = images.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [images[i], images[j]] = [images[j], images[i]];
             }
 
             // probe a larger candidate pool so we can match orientations
-            const candidateCount = Math.min(images.length, items.length * 6);
+            const candidateCount = Math.min(images.length, N * 6);
             const candidates = images.slice(0, candidateCount);
 
-            // load metadata (naturalWidth / naturalHeight) for candidates
             async function loadMeta(src) {
                 return new Promise(resolve => {
                     const im = new Image();
@@ -2243,27 +2364,29 @@
                 else squares.push(m.src);
             });
 
-            // fallback pool with remaining shuffled images
+            // remaining images to use as fallback (not probed)
             const remaining = images.slice(candidateCount);
 
-            IMGS = [];
-
-            // helper to pick a random element from a pool
+            // helper to pick and remove a random entry from a pool
             function pickFrom(pool) {
-                if (pool.length === 0) return null;
+                if (!pool || pool.length === 0) return null;
                 return pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
             }
 
-            items.forEach((item, index) => {
-                const img = item.querySelector('img');
-                if (!img) return;
+            // Prioritize assignment order so large grid spans get matched first
+            const orderedItems = [].concat(
+                items.filter(i => i.classList.contains('hero')),
+                items.filter(i => i.classList.contains('tall')),
+                items.filter(i => i.classList.contains('wide')),
+                items.filter(i => !i.classList.contains('hero') && !i.classList.contains('tall') && !i.classList.contains('wide'))
+            );
 
-                // decide desired orientation based on the item's classes
+            const chosenMap = new Map();
+
+            orderedItems.forEach(item => {
                 let chosen = null;
 
-                if (item.classList.contains('hero')) {
-                    chosen = pickFrom(landscapes) || pickFrom(squares) || pickFrom(portraits);
-                } else if (item.classList.contains('wide')) {
+                if (item.classList.contains('hero') || item.classList.contains('wide')) {
                     chosen = pickFrom(landscapes) || pickFrom(squares) || pickFrom(portraits);
                 } else if (item.classList.contains('tall')) {
                     chosen = pickFrom(portraits) || pickFrom(squares) || pickFrom(landscapes);
@@ -2271,25 +2394,55 @@
                     chosen = pickFrom(squares) || pickFrom(landscapes) || pickFrom(portraits);
                 }
 
-                // if none chosen, take from remaining or fall back to the shuffled list
                 if (!chosen) {
-                    const m = metas.pop();
-                    chosen = (m && m.src) || remaining.pop() || images[index];
+                    chosen = remaining.length ? remaining.shift() : images.length ? images.shift() : null;
                 }
 
-                IMGS.push(chosen);
+                // final fallback: if still null, use first candidate
+                if (!chosen) chosen = candidates.length ? candidates[0] : '';
 
-                item.style.opacity = '0';
-
-                setTimeout(() => {
-                    img.src = chosen;
-                    item.setAttribute('onclick', `lbOpen(${index})`);
-                    item.style.opacity = '1';
-                }, 80 + Math.floor(Math.random() * 160));
+                chosenMap.set(item, chosen);
             });
 
-            // ensure gallery images are cached
-            await preloadImages(IMGS);
+            // Build final ordered array matching DOM order
+            const chosenImages = items.map(it => chosenMap.get(it) || (remaining.length ? remaining.shift() : images.shift()));
+
+            // Ensure we always have N entries
+            while (chosenImages.length < N) {
+                chosenImages.push(images.shift() || candidates[0] || '');
+            }
+
+            // Preload chosen images (resolves even on error)
+            await preloadImages(chosenImages);
+
+            // Save IMGS for lightbox
+            IMGS = chosenImages.slice();
+
+            // expose pools for later swapping
+            window.GALLERY_POOLS = {
+                landscapes: landscapes,
+                portraits: portraits,
+                squares: squares,
+                remaining: remaining,
+                all: images.concat(candidates)
+            };
+
+            // Assign to DOM quickly — since images are preloaded, this avoids visible blanks
+            items.forEach((item, idx) => {
+                const img = item.querySelector('img');
+                if (!img) return;
+                const src = chosenImages[idx];
+                // immediately assign source
+                img.style.opacity = '0';
+                img.src = src;
+                item.setAttribute('onclick', `lbOpen(${idx})`);
+                img.onload = img.onerror = function () {
+                    img.style.opacity = '1';
+                };
+            });
+
+            // cache node list for swaps
+            window.GALLERY_ITEMS = items;
 
         }
 
